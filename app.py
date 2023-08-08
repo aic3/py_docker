@@ -1,21 +1,24 @@
+from datetime import datetime
 from flask import Flask
-import begin
 
+# declare the flask app
 app = Flask(__name__)
 
+# sample calculation
 @app.route("/calc/<int:v1>/<int:v2>")
 def calc(v1, v2):
     result  = v1 + v2
     return f"<p>{v1} + {v2} = {result}</p>"
 
+# display the current datetime
 @app.route("/")
 def default_route():
-    return f"<p>Working</p>"
+    now = datetime.now()
+    return f"<p>Current datetime {now}</p>"
 
-@begin.start(auto_convert=True)
-def main(port: 'Port' = 80):
+# start the flask app
+if __name__=="__main__":
+    # default flask port
+    port = 5000
     print(f"starting app on port: {port}")
     app.run(host='0.0.0.0', port=port)
-
-if __name__=="__main__":
-    main()
